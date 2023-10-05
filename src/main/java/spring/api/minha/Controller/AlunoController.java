@@ -1,12 +1,13 @@
 package spring.api.minha.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import spring.api.minha.Aluno.Aluno;
 import spring.api.minha.Aluno.AlunoRepository;
+import spring.api.minha.Aluno.DadosAtualizaAluno;
 import spring.api.minha.Aluno.cadastraAlunoDTO;
+
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -21,6 +22,27 @@ public class AlunoController {
     public void cadastrar(@RequestBody cadastraAlunoDTO cadastroDTO){
         alunoRepository.save(new Aluno(cadastroDTO));
     }
+
+    @GetMapping
+    public List<Aluno> listar(){
+        return alunoRepository.findAll();
+    }
+
+    @PutMapping
+    public void atualizar(@RequestBody DadosAtualizaAluno dados){
+        var aluno = alunoRepository.getReferenceById(dados.idAluno());
+        aluno.atualizarInfo(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id){
+        alunoRepository.deleteById(id);
+    }
+
+    //exclusao logica
+
+
+
 }
 
 //1-record DadosCadastroMedico

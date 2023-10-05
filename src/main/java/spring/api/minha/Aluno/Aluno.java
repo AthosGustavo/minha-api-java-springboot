@@ -24,4 +24,15 @@ public class Aluno {
     @Getter
     @Setter
     private int idadeAluno;
+
+    public void atualizarInfo(DadosAtualizaAluno dados) {
+
+        if(dados.idadeAluno() > 0){
+            this.idadeAluno = dados.idadeAluno();
+        }
+        if(dados.nomeAluno() != null) this.nomeAluno = dados.nomeAluno();
+
+
+
+    }
 }
